@@ -1,4 +1,4 @@
-package com.tutorialspoint.easymock.mathapplication;
+package com.tutorialspoint.easymock;
 
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
@@ -9,7 +9,7 @@ public class TestRunner {
 
     @Test
     public void runningTests() {
-	Result result = JUnitCore.runClasses(MathApplicationTest.class);
+	Result result = JUnitCore.runClasses(TestSuite.class);
 	for (Failure failure : result.getFailures()) {
 	    System.out.println(failure.toString());
 	}

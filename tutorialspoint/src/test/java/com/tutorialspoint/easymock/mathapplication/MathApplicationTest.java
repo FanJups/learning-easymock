@@ -21,16 +21,10 @@ public class MathApplicationTest {
     @Mock
     CalculatorService calcService;
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void testAdd() {
-	// add the behavior of calc service to add two numbers
-	EasyMock.expect(calcService.add(10.0, 20.0)).andReturn(30.00);
-
-	calcService.serviceUsed();
-	// EasyMock.expectLastCall().times(1);
-	// EasyMock.expectLastCall().times(1, 3);
-	// EasyMock.expectLastCall().atLeastOnce();
-	EasyMock.expectLastCall().anyTimes();
+	// add the behavior to throw exception
+	EasyMock.expect(calcService.add(10.0, 20.0)).andThrow(new RuntimeException("Add operation not implemented"));
 
 	/*
 	 * This line activates the mock. If this line is commented, the test will fail.

@@ -10,6 +10,4 @@ public interface CalculatorService {
 
     double divide(double input1, double input2);
 
-    void serviceUsed();
-
 }
