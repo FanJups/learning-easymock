@@ -27,7 +27,10 @@ public class MathApplicationTest {
 	EasyMock.expect(calcService.add(10.0, 20.0)).andReturn(30.00);
 
 	calcService.serviceUsed();
-	EasyMock.expectLastCall().times(1);
+	// EasyMock.expectLastCall().times(1);
+	// EasyMock.expectLastCall().times(1, 3);
+	// EasyMock.expectLastCall().atLeastOnce();
+	EasyMock.expectLastCall().anyTimes();
 
 	/*
 	 * This line activates the mock. If this line is commented, the test will fail.
