@@ -17,17 +17,14 @@ public class MathApplicationTest {
     @Before
     public void setUp() {
 	mathApplication = new MathApplication();
-	calcService = EasyMock.createStrictMock(CalculatorService.class);
+	calcService = EasyMock.createNiceMock(CalculatorService.class);
 	mathApplication.setCalculatorService(calcService);
     }
 
     @Test
-    public void testAddAndSubtract() {
+    public void testCalcService() {
 	// add the behavior to add numbers
 	EasyMock.expect(calcService.add(20.0, 10.0)).andReturn(30.0);
-
-	// subtract the behavior to subtract numbers
-	EasyMock.expect(calcService.subtract(20.0, 10.0)).andReturn(10.0);
 
 	// activate the mock
 	EasyMock.replay(calcService);
@@ -36,7 +33,13 @@ public class MathApplicationTest {
 	Assert.assertEquals(mathApplication.add(20.0, 10.0), 30.0, 0);
 
 	// test the subtract functionality
-	Assert.assertEquals(mathApplication.subtract(20.0, 10.0), 10.0, 0);
+	Assert.assertEquals(mathApplication.subtract(20.0, 10.0), 0.0, 0);
+
+	// test the multiply functionality
+	Assert.assertEquals(mathApplication.divide(20.0, 10.0), 0.0, 0);
+
+	// test the divide functionality
+	Assert.assertEquals(mathApplication.multiply(20.0, 10.0), 0.0, 0);
 
 	// verify call to calcService is made or not
 	EasyMock.verify(calcService);
