@@ -17,7 +17,7 @@ public class MathApplicationTest {
     @Before
     public void setUp() {
 	mathApplication = new MathApplication();
-	calcService = EasyMock.createMock(CalculatorService.class);
+	calcService = EasyMock.createStrictMock(CalculatorService.class);
 	mathApplication.setCalculatorService(calcService);
     }
 
@@ -32,11 +32,11 @@ public class MathApplicationTest {
 	// activate the mock
 	EasyMock.replay(calcService);
 
-	// test the subtract functionality
-	Assert.assertEquals(mathApplication.subtract(20.0, 10.0), 10.0, 0);
-
 	// test the add functionality
 	Assert.assertEquals(mathApplication.add(20.0, 10.0), 30.0, 0);
+
+	// test the subtract functionality
+	Assert.assertEquals(mathApplication.subtract(20.0, 10.0), 10.0, 0);
 
 	// verify call to calcService is made or not
 	EasyMock.verify(calcService);
