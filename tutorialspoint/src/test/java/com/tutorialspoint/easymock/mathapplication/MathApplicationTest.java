@@ -26,6 +26,9 @@ public class MathApplicationTest {
 	// add the behavior of calc service to add two numbers
 	EasyMock.expect(calcService.add(10.0, 20.0)).andReturn(30.00);
 
+	calcService.serviceUsed();
+	EasyMock.expectLastCall().times(1);
+
 	/*
 	 * This line activates the mock. If this line is commented, the test will fail.
 	 */
