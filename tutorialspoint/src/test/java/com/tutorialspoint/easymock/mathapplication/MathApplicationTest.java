@@ -26,11 +26,21 @@ public class MathApplicationTest {
 	// add the behavior of calc service to add two numbers
 	EasyMock.expect(calcService.add(10.0, 20.0)).andReturn(30.00);
 
-	// activate the mock
+	/*
+	 * This line activates the mock. If this line is commented, the test will fail.
+	 */
+
 	EasyMock.replay(calcService);
 
 	// test the add functionality
-	Assert.assertEquals(mathApplication.add(10.0, 20.0), 30.0, 0);
+	Assert.assertEquals(30.0, mathApplication.add(10.0, 20.0), 0);
+
+	// verify call to calcService is made or not
+	/*
+	 * If add method from mathapplication doesn't call the add method from
+	 * calcservice, we get a failure.
+	 */
+	EasyMock.verify(calcService);
     }
 
 }
