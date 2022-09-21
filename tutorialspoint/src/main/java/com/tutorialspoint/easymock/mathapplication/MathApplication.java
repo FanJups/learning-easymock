@@ -9,8 +9,6 @@ public class MathApplication {
     }
 
     public double add(double input1, double input2) {
-	// calcService.serviceUsed();
-	// calcService.serviceUsed();
 
 	return calcService.add(input1, input2);
 

@@ -2,9 +2,8 @@ package com.tutorialspoint.easymock.mathapplication;
 
 import org.easymock.EasyMock;
 import org.easymock.EasyMockRunner;
-import org.easymock.Mock;
-import org.easymock.TestSubject;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -12,35 +11,34 @@ import org.junit.runner.RunWith;
 @RunWith(EasyMockRunner.class)
 public class MathApplicationTest {
 
-    // @TestSubject annotation is used to identify class which is going to use the
-    // mock object
-    @TestSubject
-    MathApplication mathApplication = new MathApplication();
+    private MathApplication mathApplication;
+    private CalculatorService calcService;
 
-    // @Mock annotation is used to create the mock object to be injected
-    @Mock
-    CalculatorService calcService;
-
-    @Test(expected = RuntimeException.class)
-    public void testAdd() {
-	// add the behavior to throw exception
-	EasyMock.expect(calcService.add(10.0, 20.0)).andThrow(new RuntimeException("Add operation not implemented"));
-
-	/*
-	 * This line activates the mock. If this line is commented, the test will fail.
-	 */
-
-	EasyMock.replay(calcService);
-
-	// test the add functionality
-	Assert.assertEquals(30.0, mathApplication.add(10.0, 20.0), 0);
-
-	// verify call to calcService is made or not
-	/*
-	 * If add method from mathapplication doesn't call the add method from
-	 * calcservice, we get a failure.
-	 */
-	EasyMock.verify(calcService);
+    @Before
+    public void setUp() {
+	mathApplication = new MathApplication();
+	calcService = EasyMock.createMock(CalculatorService.class);
+	mathApplication.setCalculatorService(calcService);
     }
 
+    @Test
+    public void testAddAndSubtract() {
+	// add the behavior to add numbers
+	EasyMock.expect(calcService.add(20.0, 10.0)).andReturn(30.0);
+
+	// subtract the behavior to subtract numbers
+	EasyMock.expect(calcService.subtract(20.0, 10.0)).andReturn(10.0);
+
+	// activate the mock
+	EasyMock.replay(calcService);
+
+	// test the subtract functionality
+	Assert.assertEquals(mathApplication.subtract(20.0, 10.0), 10.0, 0);
+
+	// test the add functionality
+	Assert.assertEquals(mathApplication.add(20.0, 10.0), 30.0, 0);
+
+	// verify call to calcService is made or not
+	EasyMock.verify(calcService);
+    }
 }
